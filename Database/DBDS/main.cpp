@@ -6,6 +6,7 @@
 #include <QMessageBox>
 #include <QSqlError>
 #include <QSqlQuery>
+#include <QSqlRecord>
 
 void test() {
     qDebug() << QSqlDatabase::drivers();
@@ -21,7 +22,18 @@ void test() {
         QMessageBox::critical(NULL, "错误", db.lastError().text());
     }
     else {
-        db.close();
+        QSqlQuery ret;
+        if(!ret.exec("select * from city")) {
+            QMessageBox::critical(NULL, "错误", ret.lastError().text());
+        }
+        else {
+            QSqlRecord rcd = ret.record();
+            while(ret.next()) {
+                QVariant var = "12";
+                int num = var.toInt();
+                qDebug() << num;
+            }
+        }
     }
 }
 
