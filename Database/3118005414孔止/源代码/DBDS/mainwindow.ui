@@ -46,7 +46,6 @@
      <string>用户</string>
     </property>
     <addaction name="exitLogin_action"/>
-    <addaction name="changePD_action"/>
    </widget>
    <addaction name="user_menu"/>
   </widget>
@@ -69,11 +68,6 @@
   <action name="exitLogin_action">
    <property name="text">
     <string>退出登录</string>
-   </property>
-  </action>
-  <action name="changePD_action">
-   <property name="text">
-    <string>修改密码</string>
    </property>
   </action>
  </widget>

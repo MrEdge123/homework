@@ -35,8 +35,7 @@ SOURCES += \
     courseui.cpp \
     tcui.cpp \
     scoreui.cpp \
-    statisticui.cpp \
-    changpdui.cpp
+    statisticui.cpp
 
 HEADERS += \
     login.h \
@@ -48,8 +47,7 @@ HEADERS += \
     courseui.h \
     tcui.h \
     scoreui.h \
-    statisticui.h \
-    changpdui.h
+    statisticui.h
 
 FORMS += \
     login.ui \
@@ -61,8 +59,7 @@ FORMS += \
     courseui.ui \
     tcui.ui \
     scoreui.ui \
-    statisticui.ui \
-    changpdui.ui
+    statisticui.ui
 
 RESOURCES += \
     resource.qrc

@@ -20,27 +20,25 @@ void test() {
     db.setPassword("123456");                  //密码
     db.setDatabaseName("education_system");    //使用哪个数据库
 
+    QString sql =
+            "select * from \n"
+            "student"
+            ;
+
     if(!db.open()) {
         QMessageBox::critical(NULL, "错误", db.lastError().text());
     }
     else {
-
-        QString sql =
-                ""
-                ;
-
         QSqlQuery ret;
         if(!ret.exec(sql)) {
             QMessageBox::critical(NULL, "错误", ret.lastError().text());
         }
         else {
             while(ret.next()) {
-
+                qDebug() << ret.value("name");
             }
         }
     }
-
-    db.close();
 }
 
 int main(int argc, char *argv[])
@@ -54,5 +52,6 @@ int main(int argc, char *argv[])
     w.show();
 
     //test();
+
     return a.exec();
 }

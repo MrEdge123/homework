@@ -46,10 +46,7 @@ MainWindow::MainWindow(QWidget *parent, QString user, QString identity) :
     score_ui = new ScoreUI(this);
     static_ui = new StatisticUI(this);
 
-    changePd_ui = new ChangPdUI(this, user);
-
     connect(ui->exitLogin_action, SIGNAL(triggered(bool)), this, SLOT(exit_login()));
-    connect(ui->changePD_action, SIGNAL(triggered(bool)), this, SLOT(change_to_pd_ui()));
 
     ui->stackedWidget->addWidget(welcome_ui);
     ui->stackedWidget->addWidget(student_ui);
@@ -59,8 +56,6 @@ MainWindow::MainWindow(QWidget *parent, QString user, QString identity) :
     ui->stackedWidget->addWidget(tc_ui);
     ui->stackedWidget->addWidget(score_ui);
     ui->stackedWidget->addWidget(static_ui);
-
-    ui->stackedWidget->addWidget(changePd_ui);
 
     ui->stackedWidget->setCurrentWidget(welcome_ui);
 
@@ -124,10 +119,4 @@ void MainWindow::change_to_static_ui()
 {
     ui->stackedWidget->setCurrentWidget(static_ui);
     static_ui->init();
-}
-
-void MainWindow::change_to_pd_ui()
-{
-    ui->stackedWidget->setCurrentWidget(changePd_ui);
-    changePd_ui->init();
 }
