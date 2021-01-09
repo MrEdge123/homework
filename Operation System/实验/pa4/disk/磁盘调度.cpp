@@ -7,14 +7,15 @@
 #include <algorithm>
 using namespace std;
 
-vector<int> seq_track_id;
-vector<int> next_track_id;
-vector<int> offset;
-float avg_offset;
+vector<int> seq_track_id;   //被访问的磁道号序列
+vector<int> next_track_id;  //要访问的磁道号顺序
+vector<int> offset;         //移动距离
+float avg_offset;           //平均寻道时间
 
-int track_num = 200;
-int request_cnt = 9;
+int track_num = 200;    //磁道数
+int request_cnt = 9;    //磁道号序列长度
 
+//输出结果
 void print_res(string mode) {
 	if (next_track_id.size() != offset.size()) return;
 
@@ -44,6 +45,7 @@ void print_res(string mode) {
 	printf("\n\n");
 }
 
+//输出请求序列
 void print_seq() {
 	printf("请求磁道号序列:\n");
 	for (auto it : seq_track_id) {
@@ -52,6 +54,7 @@ void print_seq() {
 	printf("\n\n");
 }
 
+//随机生成请求序列
 void init_seq() {
 	srand(time(0));
 	for (int i = 0; i < request_cnt; i++) {
@@ -61,6 +64,7 @@ void init_seq() {
 	print_seq();
 }
 
+//计算移动距离和平均寻道长度
 void cal_offset() {
 	avg_offset = 0;
 
@@ -75,41 +79,51 @@ void cal_offset() {
 	avg_offset /= offset.size();
 }
 
+//调度
 void run(string mode) {
 	next_track_id.clear();
 	offset.clear();
 
+	//当前磁道号
 	int now = 100;
 
+	vector<int> tmp_seq = seq_track_id;
+
+	//计算访问的磁道号顺序
 	if (mode == "FCFS") {
-		next_track_id = seq_track_id;
+		next_track_id = tmp_seq;
 	}
 	else if (mode == "SSTF") {
-		sort(seq_track_id.begin(), seq_track_id.end());
+		//对磁道号进行排序
+		sort(tmp_seq.begin(), tmp_seq.end());
 
+		//找到第一个大于等于now的磁道号位置
 		int pos = 
-			lower_bound(seq_track_id.begin(), seq_track_id.end(), now)
-			- seq_track_id.begin();
+			lower_bound(tmp_seq.begin(), tmp_seq.end(), now)
+			- tmp_seq.begin();
 
+		//双指针
 		int L = pos - 1, R = pos;
-		int SZ = (int)seq_track_id.size();
+		int SZ = (int)tmp_seq.size();
 
+		//找下一个磁道号
 		while (1) {
 			if (L < 0 && R >= SZ) break;
 
 			if (L < 0) {
-				now = seq_track_id[R++];
+				now = tmp_seq[R++];
 			}
 			else if (R >= SZ) {
-				now = seq_track_id[L--];
+				now = tmp_seq[L--];
 			}
 			else {
-				if (abs(now - seq_track_id[L]) <=
-					abs(now - seq_track_id[R])) {
-					now = seq_track_id[L--];
+				//找最近的磁道号
+				if (abs(now - tmp_seq[L]) <=
+					abs(now - tmp_seq[R])) {
+					now = tmp_seq[L--];
 				}
 				else {
-					now = seq_track_id[R++];
+					now = tmp_seq[R++];
 				}
 			}
 
@@ -117,39 +131,50 @@ void run(string mode) {
 		}
 	}
 	else if (mode == "SCAN") {
-		sort(seq_track_id.begin(), seq_track_id.end());
+		//对磁道号进行排序
+		sort(tmp_seq.begin(), tmp_seq.end());
 
+		//找到第一个大于等于now的磁道号位置
 		int pos =
-			lower_bound(seq_track_id.begin(), seq_track_id.end(), now)
-			- seq_track_id.begin();
+			lower_bound(tmp_seq.begin(), tmp_seq.end(), now)
+			- tmp_seq.begin();
 
-		int SZ = seq_track_id.size();
+		int SZ = tmp_seq.size();
+
+		//磁道号小到大的方向
 		for (int i = pos; i < SZ; i++) 
-			next_track_id.push_back(seq_track_id[i]);
+			next_track_id.push_back(tmp_seq[i]);
 
+		//磁道号大到小的方向
 		for (int i = pos - 1; i >= 0; i--)
-			next_track_id.push_back(seq_track_id[i]);
+			next_track_id.push_back(tmp_seq[i]);
 
 	}
 	else if (mode == "CSCAN") {
-		sort(seq_track_id.begin(), seq_track_id.end());
+		//对磁道号进行排序
+		sort(tmp_seq.begin(), tmp_seq.end());
 
+		//找到第一个大于等于now的磁道号位置
 		int pos =
-			lower_bound(seq_track_id.begin(), seq_track_id.end(), now)
-			- seq_track_id.begin();
+			lower_bound(tmp_seq.begin(), tmp_seq.end(), now)
+			- tmp_seq.begin();
 
-		int SZ = seq_track_id.size();
-		int END = (pos - 1 + SZ) % SZ;
+		int SZ = tmp_seq.size();
+		int END = (pos - 1 + SZ) % SZ;  //记录最后一个磁道号
+
+		//取模循环
 		for (int i = pos % SZ; i != END; i = (i + 1) % SZ)
-			next_track_id.push_back(seq_track_id[i]);
+			next_track_id.push_back(tmp_seq[i]);
 
-		next_track_id.push_back(seq_track_id[END]);
+		//加入最后一个磁道号
+		next_track_id.push_back(tmp_seq[END]);
 	}
 	else {
 		printf("error!");
 		return;
 	}
 
+	//计算移动距离和平均寻道长度
 	cal_offset();
 	print_res(mode);
 }
