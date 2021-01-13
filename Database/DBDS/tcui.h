@@ -2,6 +2,7 @@
 #define TCUI_H
 
 #include <QWidget>
+#include "header.h"
 
 namespace Ui {
 class TCUI;

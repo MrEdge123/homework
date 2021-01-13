@@ -2,15 +2,7 @@
 #define STATISTICUI_H
 
 #include <QWidget>
-
-#include <QSqlDatabase>
-#include <QDebug>
-#include <QMessageBox>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QSqlRecord>
-
-#include <QStringList>
+#include "header.h"
 
 namespace Ui {
 class StatisticUI;

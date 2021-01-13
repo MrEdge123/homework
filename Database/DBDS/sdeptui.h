@@ -2,20 +2,7 @@
 #define SDEPTUI_H
 
 #include <QWidget>
-#include <QMap>
-#include <QString>
-#include <QList>
-
-#include <QSqlDatabase>
-#include <QDebug>
-#include <QMessageBox>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QSqlRecord>
-#include <QLayout>
-#include <QCheckBox>
-#include <QLayoutItem>
-#include <QObject>
+#include "header.h"
 
 namespace Ui {
 class SdeptUI;

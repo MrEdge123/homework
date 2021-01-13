@@ -35,6 +35,8 @@ protected:
 private:
     Ui::Login *ui;
     MainWindow *mw;
+
+    QSqlDatabase db;
 };
 
 #endif // LOGIN_H

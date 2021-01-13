@@ -2,6 +2,7 @@
 #define COURSEUI_H
 
 #include <QWidget>
+#include "header.h"
 
 namespace Ui {
 class CourseUI;

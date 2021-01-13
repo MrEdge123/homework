@@ -15,6 +15,7 @@ StudentUI::~StudentUI()
 
 void StudentUI::init()
 {
+    //ui
     ui->t1_birth_dateEdit->setTime(QTime::currentTime());
     ui->t1_name_lineEdit->setText("");
     ui->t1_no_lineEdit->setText("");
@@ -36,16 +37,8 @@ void StudentUI::init()
     ui->t2_sdept_comboBox->setEnabled(false);
     ui->t2_sex_comboBox->setEnabled(false);
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
+    //sdept
     QString sql = "select * from sdept";
-
-    db.open();
 
     QSqlQuery ret;
     if(!ret.exec(sql)) {
@@ -67,7 +60,39 @@ void StudentUI::init()
         }
     }
 
-    db.close();
+    //student
+    QGridLayout *playout = new QGridLayout(this);
+    sql = "select no, name from student ";
+    if(!ret.exec(sql)) {
+        QMessageBox::critical(this, "错误", ret.lastError().text());
+    }
+    else {
+        student_name_to_no.clear();
+
+        while(ret.next()) {
+            QString name = ret.value("no").toString() + " (" + ret.value("name").toString() + ")";
+            QString no = ret.value("no").toString();
+
+            QCheckBox *pbox = new QCheckBox(name, this);
+
+            student_name_to_no.insert(name, no);
+            playout->addWidget(pbox);
+        }
+    }
+
+    QLayoutItem *child;
+
+    if(ui->t3_scrollAreaWidgetContents->layout()) {
+        while( (child = ui->t3_scrollAreaWidgetContents->layout()->takeAt(0)) != 0) {
+            if(child->widget()) {
+                child->widget()->setParent(NULL);
+            }
+            delete child;
+        }
+        delete ui->t3_scrollAreaWidgetContents->layout();
+    }
+
+    ui->t3_scrollArea->widget()->setLayout(playout);
 }
 
 void StudentUI::on_t1_add_pushButton_clicked()
@@ -95,31 +120,42 @@ void StudentUI::on_t1_add_pushButton_clicked()
         return;
     }
 
+    if(ad_score == "") {
+        QMessageBox::critical(this, "错误", "入学成绩未输入!");
+        return;
+    }
+
     sdept_no = sdept_name_to_no[ui->t1_sdept_comboBox->currentText()];
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
     QString sql =
-            "insert into user(no, password, identity) "
-            "values ('%1', '%2', '%3'); "
+            "select * from user "
+            "where no = '%1' "
             ;
 
-    sql = sql.arg(no, "123456", "学生");
-
-    db.open();
+    sql = sql.arg(no);
 
     QSqlQuery ret;
     if(!ret.exec(sql)) {
         QMessageBox::critical(this, "错误", ret.lastError().text());
     }
     else {
-        db.commit();
+        if(ret.size() == 1) {
+            QMessageBox::critical(this, "错误", "用户号已存在!");
+            return;
+        }
+    }
 
+    sql =
+            "insert into user(no, password, identity) "
+            "values ('%1', '%2', '%3'); "
+            ;
+
+    sql = sql.arg(no, "123456", "学生");
+
+    if(!ret.exec(sql)) {
+        QMessageBox::critical(this, "错误", ret.lastError().text());
+    }
+    else {
         sql = "insert into student(no, name, sex, birth, ad_score, sdept_no) "
               "values ('%1', '%2', '%3', '%4', %5, '%6'); "
                 ;
@@ -130,25 +166,15 @@ void StudentUI::on_t1_add_pushButton_clicked()
             QMessageBox::critical(this, "错误", ret.lastError().text());
         }
         else {
-            db.commit();
             QMessageBox::information(this, "信息", "添加成功!");
             init();
         }
     }
-
-    db.close();
 }
 
 void StudentUI::on_t2_q_pushButton_clicked()
 {
     QString no = ui->t2_q_no_lineEdit->text();
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
 
     QString sql =
             "select * from student "
@@ -156,8 +182,6 @@ void StudentUI::on_t2_q_pushButton_clicked()
             ;
 
     sql = sql.arg(no);
-
-    db.open();
 
     QSqlQuery ret;
     if(!ret.exec(sql)) {
@@ -194,8 +218,6 @@ void StudentUI::on_t2_q_pushButton_clicked()
             ui->t2_score_lineEdit->setText(score);
         }
     }
-
-    db.close();
 }
 
 void StudentUI::on_t2_m_pushButton_clicked()
@@ -220,15 +242,6 @@ void StudentUI::on_t2_m_pushButton_clicked()
 
     sdept_no = sdept_name_to_no[ui->t2_sdept_comboBox->currentText()];
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
-    db.open();
-
     QString sql;
 
     sql = "select no from student "
@@ -244,7 +257,6 @@ void StudentUI::on_t2_m_pushButton_clicked()
     else {
         if(ret.size() == 0) {
             QMessageBox::critical(this, "错误", "该用户不存在");
-            db.close();
             return;
         }
     }
@@ -261,9 +273,44 @@ void StudentUI::on_t2_m_pushButton_clicked()
         QMessageBox::critical(this, "错误", ret.lastError().text());
     }
     else {
-        db.commit();
         QMessageBox::information(this, "信息", "修改成功!");
     }
+}
 
-    db.close();
+void StudentUI::on_t3_pushButton_clicked()
+{
+    if(QMessageBox::Yes == QMessageBox::warning(this, "警告", "确定要删除选定学生?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No)) {
+        qDebug() << "yes";
+    }
+    else {
+        qDebug() << "no";
+    }
+
+    QLayout *layout = ui->t3_scrollAreaWidgetContents->layout();
+
+    for(int i = 0; i < layout->count(); i++) {
+        QLayoutItem *it = layout->itemAt(i);
+        QCheckBox *pbox = qobject_cast<QCheckBox *>(it->widget());
+
+        if(!pbox->isChecked()) continue;
+
+        QString sql;
+
+        sql =   "delete from user "
+                "where no = '%1'; "
+                ;
+
+        sql = sql.arg(student_name_to_no[pbox->text()]);
+
+        QSqlQuery ret;
+        if(!ret.exec(sql)) {
+            QMessageBox::critical(this, "错误", ret.lastError().text());
+        }
+        else {
+            //succ
+        }
+    }
+
+    init();
+    QMessageBox::information(this, "信息", "删除完成!");
 }

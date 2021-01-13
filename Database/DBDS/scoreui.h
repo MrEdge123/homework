@@ -2,6 +2,7 @@
 #define SCOREUI_H
 
 #include <QWidget>
+#include "header.h"
 
 namespace Ui {
 class ScoreUI;

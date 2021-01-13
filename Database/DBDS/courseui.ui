@@ -46,7 +46,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_6">
            <item>
-            <widget class="QListWidget" name="listWidget">
+            <widget class="QListWidget" name="t1_listWidget">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                <horstretch>0</horstretch>
@@ -133,7 +133,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_7">
           <item>
-           <widget class="QLineEdit" name="t1_no_lineEdit_2">
+           <widget class="QLineEdit" name="t2_no_lineEdit">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -149,7 +149,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
-           <widget class="QLineEdit" name="t1_name_lineEdit_2">
+           <widget class="QLineEdit" name="t2_name_lineEdit">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -165,7 +165,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_9">
           <item>
-           <widget class="QLineEdit" name="t1_hour_lineEdit_2"/>
+           <widget class="QLineEdit" name="t2_hour_lineEdit"/>
           </item>
          </layout>
         </widget>
@@ -177,7 +177,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_17">
           <item>
-           <widget class="QLineEdit" name="t1_credit_lineEdit_2"/>
+           <widget class="QLineEdit" name="t2_credit_lineEdit"/>
           </item>
          </layout>
         </widget>
@@ -203,7 +203,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QLineEdit" name="t1_no_lineEdit_3">
+           <widget class="QLineEdit" name="t3_no_lineEdit">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -219,7 +219,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_12">
           <item>
-           <widget class="QLineEdit" name="t1_name_lineEdit_3">
+           <widget class="QLineEdit" name="t3_name_lineEdit">
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -235,7 +235,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_13">
           <item>
-           <widget class="QLineEdit" name="t1_hour_lineEdit_3"/>
+           <widget class="QLineEdit" name="t3_hour_lineEdit"/>
           </item>
          </layout>
         </widget>
@@ -247,7 +247,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_18">
           <item>
-           <widget class="QLineEdit" name="t1_credit_lineEdit_3"/>
+           <widget class="QLineEdit" name="t3_credit_lineEdit"/>
           </item>
          </layout>
         </widget>

@@ -8,12 +8,26 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("教务管理系统");
 
+    db = QSqlDatabase::addDatabase("QMYSQL");
+
+    db.setHostName("127.0.0.1");               //数据库服务器ip
+    db.setUserName("root");                    //数据库用户名
+    db.setPassword("123456");                  //密码
+    db.setDatabaseName("education_system");    //使用哪个数据库
+
+    if(!db.open()) {
+        QMessageBox::critical(this, "数据库打开错误", db.lastError().text());
+        QApplication *app;
+        app->quit();
+    }
+
     ui->password_lineEdit->setEchoMode(QLineEdit::Password);
     mw = NULL;
 }
 
 Login::~Login()
 {
+    db.close();
     delete ui;
 }
 
@@ -21,13 +35,6 @@ void Login::on_login_pushButton_clicked()
 {
     QString user = ui->user_lineEdit->text();
     QString password = ui->password_lineEdit->text();
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
 
     QString user_sql =
             "select * from user "
@@ -45,42 +52,37 @@ void Login::on_login_pushButton_clicked()
     qDebug() << "user_sql: " << user_sql;
     qDebug() << "login_sql: " << login_sql;
 
-    if(!db.open()) {
-        QMessageBox::critical(this, "数据库打开错误", db.lastError().text());
+    QSqlQuery ret;
+    if(!ret.exec(user_sql)) {
+        QMessageBox::critical(this, "user_sql执行错误", ret.lastError().text());
     }
     else {
-        QSqlQuery ret;
-        if(!ret.exec(user_sql)) {
-            QMessageBox::critical(this, "user_sql执行错误", ret.lastError().text());
+        if(ret.size() == 0) {
+             QMessageBox::critical(this, "错误", "该用户不存在!");
         }
         else {
-            if(ret.size() == 0) {
-                 QMessageBox::critical(this, "错误", "该用户不存在!");
+            if(!ret.exec(login_sql)) {
+                QMessageBox::critical(this, "login_sql执行错误", ret.lastError().text());
             }
             else {
-                if(!ret.exec(login_sql)) {
-                    QMessageBox::critical(this, "login_sql执行错误", ret.lastError().text());
+                if(ret.size() == 0) {
+                    QMessageBox::critical(this, "错误", "密码输入错误!");
                 }
                 else {
-                    if(ret.size() == 0) {
-                        QMessageBox::critical(this, "错误", "密码输入错误!");
+                    //获取身份信息
+                    ret.next();
+                    QString identity = ret.value("identity").toString();
+
+                    if(identity != QString("管理员")) {
+                        QMessageBox::critical(this, "错误", "无权限访问系统!");
                     }
                     else {
-                        //获取身份信息
-                        ret.next();
-                        QString identity = ret.value("identity").toString();
+                        //进入主界面
+                        mw = new MainWindow(NULL, user, identity);
+                        mw->show();
+                        this->hide();
 
-                        if(identity != QString("管理员")) {
-                            QMessageBox::critical(this, "错误", "无权限访问系统!");
-                        }
-                        else {
-                            //进入主界面
-                            mw = new MainWindow(NULL, user, identity);
-                            mw->show();
-                            this->hide();
-
-                            connect(mw, SIGNAL(exit_login_sig()), this, SLOT(relogin()));
-                        }
+                        connect(mw, SIGNAL(exit_login_sig()), this, SLOT(relogin()));
                     }
                 }
             }

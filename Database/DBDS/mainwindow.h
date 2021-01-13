@@ -15,6 +15,7 @@
 #include "scoreui.h"
 #include "statisticui.h"
 #include "changpdui.h"
+#include "messageui.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,8 @@ private slots:
     void change_to_tc_ui();
     void change_to_score_ui();
     void change_to_static_ui();
+    void change_to_message_ui();
+
     void change_to_pd_ui();
 
 private:
@@ -64,6 +67,7 @@ private:
     TCUI *tc_ui;
     ScoreUI *score_ui;
     StatisticUI *static_ui;
+    MessageUI *message_ui;
 
     ChangPdUI *changePd_ui;
 };

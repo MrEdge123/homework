@@ -27,43 +27,27 @@ void StatisticUI::on_radioButton_pressed()
     ui->t1_tableWidget->setColumnCount(header.count());
     ui->t1_tableWidget->setHorizontalHeaderLabels(header);
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    QString sql =
+            "select student.no, student.name, student.sex,  "
+            "       course.no, course.name, teacher.no, teacher.name,  "
+            "       class_time, class_location, course.hour, course.credit, exam_time  "
+            "       usual_score, exam_score, student_course.score  "
+            "from student, course, teacher_course, student_course, teacher "
+            "where student.no = student_course.student_no and "
+            "      student_course.tc_no = teacher_course.no and  "
+            "      teacher_course.teacher_no = teacher.no and       "
+            "      teacher_course.course_no = course.no             "
+            "order by student.no; "
+            ;
 
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
-    if(!db.open()) {
-        QMessageBox::critical(NULL, "错误", db.lastError().text());
+    QSqlQuery ret;
+    if(!ret.exec(sql)) {
+        QMessageBox::critical(NULL, "错误", ret.lastError().text());
     }
     else {
+        while(ret.next()) {
 
-        QString sql =
-                "select student.no, student.name, student.sex,  "
-                "       course.no, course.name, teacher.no, teacher.name,  "
-                "       class_time, class_location, course.hour, course.credit, exam_time  "
-                "       usual_score, exam_score, student_course.score  "
-                "from student, course, teacher_course, student_course, teacher "
-                "where student.no = student_course.student_no and "
-                "      student_course.tc_no = teacher_course.no and  "
-                "      teacher_course.teacher_no = teacher.no and       "
-                "      teacher_course.course_no = course.no             "
-                "order by student.no; "
-                ;
-
-        QSqlQuery ret;
-        if(!ret.exec(sql)) {
-            QMessageBox::critical(NULL, "错误", ret.lastError().text());
-        }
-        else {
-
-            while(ret.next()) {
-
-
-            }
         }
     }
 
-    db.close();
 }

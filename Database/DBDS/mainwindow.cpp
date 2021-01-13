@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent, QString user, QString identity) :
     ui->menubar->addAction(course_action);
     ui->menubar->addAction(teacher_course_action);
     ui->menubar->addAction(score_action);
-    //ui->menubar->addAction(query_action);
+    ui->menubar->addAction(query_action);
     ui->menubar->addAction(statistic_action);
 
     welcome_ui = new WelcomeUI(this);
@@ -45,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent, QString user, QString identity) :
     tc_ui = new TCUI(this);
     score_ui = new ScoreUI(this);
     static_ui = new StatisticUI(this);
+    message_ui = new MessageUI(this);
 
     changePd_ui = new ChangPdUI(this, user);
 
@@ -59,6 +60,7 @@ MainWindow::MainWindow(QWidget *parent, QString user, QString identity) :
     ui->stackedWidget->addWidget(tc_ui);
     ui->stackedWidget->addWidget(score_ui);
     ui->stackedWidget->addWidget(static_ui);
+    ui->stackedWidget->addWidget(message_ui);
 
     ui->stackedWidget->addWidget(changePd_ui);
 
@@ -71,6 +73,7 @@ MainWindow::MainWindow(QWidget *parent, QString user, QString identity) :
     connect(teacher_course_action, SIGNAL(triggered(bool)), this, SLOT(change_to_tc_ui()));
     connect(score_action, SIGNAL(triggered(bool)), this, SLOT(change_to_score_ui()));
     connect(statistic_action, SIGNAL(triggered(bool)), this, SLOT(change_to_static_ui()));
+    connect(query_action, SIGNAL(triggered(bool)), this, SLOT(change_to_message_ui()));
 }
 
 MainWindow::~MainWindow()
@@ -124,6 +127,12 @@ void MainWindow::change_to_static_ui()
 {
     ui->stackedWidget->setCurrentWidget(static_ui);
     static_ui->init();
+}
+
+void MainWindow::change_to_message_ui()
+{
+    ui->stackedWidget->setCurrentWidget(message_ui);
+    message_ui->init();
 }
 
 void MainWindow::change_to_pd_ui()

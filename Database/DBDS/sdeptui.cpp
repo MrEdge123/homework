@@ -20,19 +20,13 @@ void SdeptUI::init()
 {
     ui->listWidget->clear();
     ui->t3_no_comboBox->clear();
+    ui->t2_introduction_textEdit->setText("");
+    ui->t2_name_lineEdit->setText("");
+    ui->t2_no_lineEdit->setText("");
 
     QGridLayout *playout = new QGridLayout(this);
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
-    QString sql = "select * from sdept";
-
-    db.open();
+    QString sql = "select * from sdept ";
 
     QSqlQuery ret;
     if(!ret.exec(sql)) {
@@ -58,8 +52,6 @@ void SdeptUI::init()
         }
     }
 
-    db.close();
-
     QLayoutItem *child;
 
     if(ui->t4_scrollAreaWidgetContents->layout()) {
@@ -72,14 +64,6 @@ void SdeptUI::init()
         delete ui->t4_scrollAreaWidgetContents->layout();
     }
 
-    /*
-    for(int i = ui->t4_scrollAreaWidgetContents->layout()->count()-1; i >= 0; i--) {
-        QLayoutItem *it = ui->t4_scrollAreaWidgetContents->layout()->takeAt(i);
-        QCheckBox *pbox = qobject_cast<QCheckBox*>(it->widget());
-        delete it;
-    }
-    */
-
     ui->t4_scrollArea->widget()->setLayout(playout);
 
     foreach (QString no, sdept_no_list) {
@@ -91,21 +75,12 @@ void SdeptUI::query_sdept(int pos)
 {
     if(pos < 0) return;
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
     QString sql =
             "select * from sdept "
             "where no = '%1' "
             ;
 
     sql = sql.arg(sdept_no_list[pos]);
-
-    db.open();
 
     QSqlQuery ret;
     if(!ret.exec(sql)) {
@@ -122,8 +97,6 @@ void SdeptUI::query_sdept(int pos)
         ui->t1_name_lineEdit->setText(name);
         ui->t1_introduction_textBrowser->setText(introduction);
     }
-
-    db.close();
 }
 
 void SdeptUI::on_t2_add_pushButton_clicked()
@@ -142,45 +115,44 @@ void SdeptUI::on_t2_add_pushButton_clicked()
         return;
     }
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    QString sql;
+    QSqlQuery ret;
 
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
+    sql =   "select no from sdept "
+            "where no = '%1' "
+            ;
 
-    QString sql =
+    sql = sql.arg(no);
+
+    if(!ret.exec(sql)) {
+        QMessageBox::critical(this, "错误", ret.lastError().text());
+    }
+    else {
+        if(ret.size() == 1) {
+            QMessageBox::critical(this, "错误", "系号已存在!");
+            return;
+        }
+    }
+
+    sql =
             "insert into sdept(no, name, introduction) "
             "values ('%1', '%2', '%3'); "
             ;
 
     sql = sql.arg(no, name, introduction);
 
-    db.open();
-
-    QSqlQuery ret;
     if(!ret.exec(sql)) {
         QMessageBox::critical(this, "错误", ret.lastError().text());
     }
     else {
-        db.commit();
         QMessageBox::information(this, "信息", "添加成功!");
         init();
     }
-
-    db.close();
 }
 
 void SdeptUI::on_t3_info_change(int pos)
 {
     if(pos < 0) return;
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
 
     QString sql =
             "select * from sdept "
@@ -188,8 +160,6 @@ void SdeptUI::on_t3_info_change(int pos)
             ;
 
     sql = sql.arg(sdept_no_list[pos]);
-
-    db.open();
 
     QSqlQuery ret;
     if(!ret.exec(sql)) {
@@ -205,7 +175,6 @@ void SdeptUI::on_t3_info_change(int pos)
         ui->t3_introduction_textEdit->setText(introduction);
     }
 
-    db.close();
 }
 
 void SdeptUI::on_t3_m_pushButton_clicked()
@@ -224,15 +193,6 @@ void SdeptUI::on_t3_m_pushButton_clicked()
         return;
     }
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
-    db.open();
-
     QString sql;
 
     sql =   "update sdept "
@@ -247,11 +207,8 @@ void SdeptUI::on_t3_m_pushButton_clicked()
         QMessageBox::critical(this, "错误", ret.lastError().text());
     }
     else {
-        db.commit();
         QMessageBox::information(this, "信息", "修改成功!");
     }
-
-    db.close();
 }
 
 void SdeptUI::on_pushButton_clicked()
@@ -259,15 +216,6 @@ void SdeptUI::on_pushButton_clicked()
     if(QMessageBox::No == QMessageBox::warning(this, "警告", "确定要删除选定教职工?", QMessageBox::Yes | QMessageBox::No, QMessageBox::No)) {
         return;
     }
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-
-    db.setHostName("127.0.0.1");               //数据库服务器ip
-    db.setUserName("root");                    //数据库用户名
-    db.setPassword("123456");                  //密码
-    db.setDatabaseName("education_system");    //使用哪个数据库
-
-    db.open();
 
     QLayout *layout = ui->t4_scrollAreaWidgetContents->layout();
 
@@ -290,11 +238,9 @@ void SdeptUI::on_pushButton_clicked()
             QMessageBox::critical(this, "错误", ret.lastError().text());
         }
         else {
-            db.commit();
+            //succ
         }
     }
-
-    db.close();
 
     init();
     QMessageBox::information(this, "信息", "删除完成!");
