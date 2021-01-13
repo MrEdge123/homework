@@ -149,6 +149,5 @@ int main() {
 	run("FF");   //首次适应算法
 	run("BF");   //最佳适应算法
 
-	system("pause");
 	return 0;
 }

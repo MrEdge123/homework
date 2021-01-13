@@ -187,6 +187,5 @@ int main() {
 	run("SCAN");
 	run("CSCAN");
 
-	system("pause");
 	return 0;
 }
