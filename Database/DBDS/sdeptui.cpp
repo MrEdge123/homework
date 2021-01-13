@@ -174,7 +174,6 @@ void SdeptUI::on_t3_info_change(int pos)
         ui->t3_name_lineEdit->setText(name);
         ui->t3_introduction_textEdit->setText(introduction);
     }
-
 }
 
 void SdeptUI::on_t3_m_pushButton_clicked()

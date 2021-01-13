@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -100,7 +100,11 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
-             <widget class="QLineEdit" name="t1_hour_lineEdit"/>
+             <widget class="QLineEdit" name="t1_hour_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -112,7 +116,11 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_16">
             <item>
-             <widget class="QLineEdit" name="t1_credit_lineEdit"/>
+             <widget class="QLineEdit" name="t1_credit_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -135,7 +143,7 @@
           <item>
            <widget class="QLineEdit" name="t2_no_lineEdit">
             <property name="readOnly">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -151,7 +159,7 @@
           <item>
            <widget class="QLineEdit" name="t2_name_lineEdit">
             <property name="readOnly">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -203,8 +211,8 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QLineEdit" name="t3_no_lineEdit">
-            <property name="readOnly">
+           <widget class="QComboBox" name="t3_no_comboBox">
+            <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
@@ -221,7 +229,7 @@
           <item>
            <widget class="QLineEdit" name="t3_name_lineEdit">
             <property name="readOnly">
-             <bool>true</bool>
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -293,7 +301,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="t4_pushButton">
          <property name="text">
           <string>删除选定课程</string>
          </property>
