@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>416</width>
-    <height>315</height>
+    <width>393</width>
+    <height>290</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -25,78 +25,42 @@
       </attribute>
       <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="1,1,2">
        <item>
-        <widget class="QGroupBox" name="groupBox">
+        <widget class="QGroupBox" name="t1_teacher_groupBox">
          <property name="title">
-          <string>老师</string>
+          <string>教职工</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QComboBox" name="comboBox_3">
+           <widget class="QComboBox" name="t1_teacher_comboBox">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListWidget" name="t1_teacher_listWidget"/>
           </item>
          </layout>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_2">
+        <widget class="QGroupBox" name="t1_tc_no_groupBox">
          <property name="title">
-          <string>所任课程</string>
+          <string>上课号</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
-           <widget class="QListWidget" name="listWidget_2"/>
+           <widget class="QListWidget" name="t1_tc_no_listWidget"/>
           </item>
          </layout>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="groupBox_11">
+        <widget class="QGroupBox" name="t1_course_info_groupBox">
          <property name="title">
           <string>任课信息</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_14">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>学期</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>上课号</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="lineEdit_2">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
@@ -107,7 +71,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_3">
+             <widget class="QLineEdit" name="t1_course_no_lineEdit">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -125,7 +89,43 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_4">
+             <widget class="QLineEdit" name="t1_course_name_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>上课号</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t1_tc_no_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>学期</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t1_semester_lineEdit">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -143,7 +143,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_5">
+             <widget class="QLineEdit" name="t1_class_time_lineEdit">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -161,7 +161,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_6">
+             <widget class="QLineEdit" name="t1_class_location_lineEdit">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -179,7 +179,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_7">
+             <widget class="QLineEdit" name="t1_exam_time_lineEdit">
               <property name="readOnly">
                <bool>true</bool>
               </property>
@@ -192,7 +192,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_5">
+     <widget class="QWidget" name="tab_2">
       <attribute name="title">
        <string>修改任课信息</string>
       </attribute>
@@ -200,71 +200,53 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_19" stretch="1,1,2">
          <item>
-          <widget class="QGroupBox" name="groupBox_13">
+          <widget class="QGroupBox" name="t1_teacher_groupBox_2">
            <property name="title">
-            <string>老师</string>
+            <string>教职工</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_16">
+           <layout class="QVBoxLayout" name="verticalLayout_17">
             <item>
-             <widget class="QComboBox" name="comboBox_7">
+             <widget class="QComboBox" name="t2_teacher_comboBox">
               <property name="editable">
                <bool>true</bool>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QListWidget" name="listWidget_11"/>
+             <widget class="QListWidget" name="t2_teacher_listWidget"/>
             </item>
            </layout>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_14">
+          <widget class="QGroupBox" name="t1_tc_no_groupBox_2">
            <property name="title">
-            <string>所任课程</string>
+            <string>上课号</string>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_17">
+           <layout class="QVBoxLayout" name="verticalLayout_16">
             <item>
-             <widget class="QListWidget" name="listWidget_12"/>
+             <widget class="QListWidget" name="t2_tc_no_listWidget"/>
             </item>
            </layout>
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_12">
+          <widget class="QGroupBox" name="t1_course_info_groupBox_2">
            <property name="title">
             <string>任课信息</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_15">
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_14">
+             <layout class="QHBoxLayout" name="horizontalLayout_12">
               <item>
-               <widget class="QLabel" name="label_10">
+               <widget class="QLabel" name="label_8">
                 <property name="text">
                  <string>课程号</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_10">
-                <property name="readOnly">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_15">
-              <item>
-               <widget class="QLabel" name="label_11">
-                <property name="text">
-                 <string>课程名</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="lineEdit_11">
+               <widget class="QLineEdit" name="t2_course_no_lineEdit">
                 <property name="readOnly">
                  <bool>true</bool>
                 </property>
@@ -277,12 +259,12 @@
               <item>
                <widget class="QLabel" name="label_9">
                 <property name="text">
-                 <string>上课号</string>
+                 <string>课程名</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_9">
+               <widget class="QLineEdit" name="t2_course_name_lineEdit">
                 <property name="readOnly">
                  <bool>true</bool>
                 </property>
@@ -291,16 +273,34 @@
              </layout>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <layout class="QHBoxLayout" name="horizontalLayout_14">
               <item>
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="label_10">
+                <property name="text">
+                 <string>上课号</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="t2_tc_no_lineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15">
+              <item>
+               <widget class="QLabel" name="label_11">
                 <property name="text">
                  <string>学期</string>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_8">
+               <widget class="QLineEdit" name="t2_semester_lineEdit">
                 <property name="readOnly">
                  <bool>false</bool>
                 </property>
@@ -318,7 +318,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_12">
+               <widget class="QLineEdit" name="t2_class_time_lineEdit">
                 <property name="readOnly">
                  <bool>false</bool>
                 </property>
@@ -336,7 +336,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_13">
+               <widget class="QLineEdit" name="t2_class_location_lineEdit">
                 <property name="readOnly">
                  <bool>false</bool>
                 </property>
@@ -354,13 +354,23 @@
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="lineEdit_14">
+               <widget class="QLineEdit" name="t2_exam_time_lineEdit">
                 <property name="readOnly">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QDateTimeEdit" name="t2_exam_time_dateTimeEdit">
+              <property name="displayFormat">
+               <string>yyyy/MM/dd HH:mm</string>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -368,7 +378,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="t2_m_pushButton">
          <property name="text">
           <string>修改</string>
          </property>
@@ -376,7 +386,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>增删任课信息</string>
       </attribute>
@@ -384,18 +394,18 @@
        <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
-          <string>老师</string>
+          <string>教职工</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QComboBox" name="comboBox">
+           <widget class="QComboBox" name="t3_teacher_comboBox">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget_3"/>
+           <widget class="QListWidget" name="t3_teacher_listWidget"/>
           </item>
          </layout>
         </widget>
@@ -403,17 +413,17 @@
        <item>
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
-          <string>所任课程</string>
+          <string>所选课程</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <widget class="QListWidget" name="listWidget_4"/>
+           <widget class="QListWidget" name="t3_select_course_listWidget"/>
           </item>
          </layout>
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_19">
+        <layout class="QVBoxLayout" name="verticalLayout_21">
          <item>
           <spacer name="verticalSpacer_2">
            <property name="orientation">
@@ -428,14 +438,30 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QGroupBox" name="groupBox_16">
+           <property name="title">
+            <string>当前上课号</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_19">
+            <item>
+             <widget class="QLineEdit" name="t3_tc_no_current_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="t3_delete_pushButton">
            <property name="text">
             <string>-&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="t3_add_pushButton">
            <property name="text">
             <string>&lt;-</string>
            </property>
@@ -444,11 +470,11 @@
          <item>
           <widget class="QGroupBox" name="groupBox_15">
            <property name="title">
-            <string>上课号</string>
+            <string>输入上课号</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
-             <widget class="QLineEdit" name="lineEdit_15"/>
+             <widget class="QLineEdit" name="t3_tc_no_input_lineEdit"/>
             </item>
            </layout>
           </widget>
@@ -471,56 +497,18 @@
        <item>
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
-          <string>可选课程</string>
+          <string>可任课程</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
-           <widget class="QComboBox" name="comboBox_2">
+           <widget class="QComboBox" name="t3_not_select_course_comboBox">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget_5"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>查询选课信息</string>
-      </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <item>
-        <widget class="QGroupBox" name="groupBox_7">
-         <property name="title">
-          <string>学生</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_9">
-          <item>
-           <widget class="QComboBox" name="comboBox_4">
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QListWidget" name="listWidget_7"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="title">
-          <string>所选课程</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_8">
-          <item>
-           <widget class="QListWidget" name="listWidget_6"/>
+           <widget class="QListWidget" name="t3_not_select_course_listWidget"/>
           </item>
          </layout>
         </widget>
@@ -528,6 +516,179 @@
       </layout>
      </widget>
      <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>查询选课信息</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_26" stretch="1,1,2">
+       <item>
+        <widget class="QGroupBox" name="t1_teacher_groupBox_3">
+         <property name="title">
+          <string>学生</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QComboBox" name="t4_student_comboBox">
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="t4_student_listWidget"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="t1_tc_no_groupBox_3">
+         <property name="title">
+          <string>上课号</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QListWidget" name="t4_tc_no_listWidget"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="t1_course_info_groupBox_3">
+         <property name="title">
+          <string>上课信息</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_20">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_20">
+            <item>
+             <widget class="QLabel" name="label_15">
+              <property name="text">
+               <string>课程号</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_course_no_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_21">
+            <item>
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>课程名</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_course_name_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_22">
+            <item>
+             <widget class="QLabel" name="label_17">
+              <property name="text">
+               <string>上课号</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_tc_no_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_18">
+              <property name="text">
+               <string>学期</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_semester_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_23">
+            <item>
+             <widget class="QLabel" name="label_19">
+              <property name="text">
+               <string>上课时间</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_class_time_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_24">
+            <item>
+             <widget class="QLabel" name="label_20">
+              <property name="text">
+               <string>上课地点</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_class_location_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_25">
+            <item>
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>考试时间</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="t4_exam_time_lineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_5">
       <attribute name="title">
        <string>增删选课信息</string>
       </attribute>
@@ -539,14 +700,14 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_12">
           <item>
-           <widget class="QComboBox" name="comboBox_6">
+           <widget class="QComboBox" name="t5_student_comboBox">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget_9"/>
+           <widget class="QListWidget" name="t5_student_listWidget"/>
           </item>
          </layout>
         </widget>
@@ -554,11 +715,11 @@
        <item>
         <widget class="QGroupBox" name="groupBox_10">
          <property name="title">
-          <string>所选课程</string>
+          <string>所选课程安排</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_13">
           <item>
-           <widget class="QListWidget" name="listWidget_10"/>
+           <widget class="QListWidget" name="t5_select_course_listWidget"/>
           </item>
          </layout>
         </widget>
@@ -579,14 +740,14 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="t5_delete_pushButton">
            <property name="text">
             <string>-&gt;</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="t5_add_pushButton">
            <property name="text">
             <string>&lt;-</string>
            </property>
@@ -610,18 +771,18 @@
        <item>
         <widget class="QGroupBox" name="groupBox_8">
          <property name="title">
-          <string>可选课程</string>
+          <string>可选课程安排</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
-           <widget class="QComboBox" name="comboBox_5">
+           <widget class="QComboBox" name="t5_not_select_course_comboBox">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget_8"/>
+           <widget class="QListWidget" name="t5_not_select_course_listWidget"/>
           </item>
          </layout>
         </widget>

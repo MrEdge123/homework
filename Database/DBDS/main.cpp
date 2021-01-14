@@ -1,14 +1,7 @@
 #include "login.h"
 #include <QApplication>
-
-#include <QSqlDatabase>
-#include <QDebug>
-#include <QMessageBox>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QSqlRecord>
-
-#include <QFile>
+#include <QStyle>
+#include <QStyleFactory>
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +9,8 @@ int main(int argc, char *argv[])
            QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication a(argc, argv);
+
+    a.setStyle(QStyleFactory::create("fusion"));
 
     Login w;
     w.show();

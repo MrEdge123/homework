@@ -206,6 +206,7 @@ void SdeptUI::on_t3_m_pushButton_clicked()
         QMessageBox::critical(this, "错误", ret.lastError().text());
     }
     else {
+        init();
         QMessageBox::information(this, "信息", "修改成功!");
     }
 }
