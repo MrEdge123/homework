@@ -1,6 +1,7 @@
 #ifndef CHATWINDOW_H
 #define CHATWINDOW_H
 
+#include <iostream>
 #include <QWidget>
 #include <QTcpSocket>
 #include <QTcpServer>
@@ -13,6 +14,8 @@
 #include <QMessageBox>
 #include <QThread>
 #include <QKeyEvent>
+#include <QCryptographicHash>
+#include <QCoreApplication>
 #include "user.h"
 #include "filegetwindow.h"
 #include "filesendwindow.h"
@@ -38,6 +41,7 @@ private slots:
     void connectToUser_File();
     void sendMsg();
     void sendFile();
+    void setProcessBar(qint64 byteSize);
     void readySendFileACK();
     void sendFileACK();
     void readySendFileInfo();
@@ -66,15 +70,17 @@ private:
     QString fileName;
     QString fileDir;
     QByteArray fileByteArray;
-    long long fileSendByte;
-    long long fileGetByte;
-    long long fileAllByte;
-
+    QString fileMd5;
     QString getFileName(QString filePath);
 
     void keyPressEvent(QKeyEvent *e);
 
 public:
+
+    long long fileSendByte;
+    long long fileGetByte;
+    long long fileAllByte;
+
     void getMsg(QByteArray msg);
     void getFile(QByteArray msg);
     void offlineMsg();
@@ -83,7 +89,7 @@ public:
     void startSendFile();
     bool sendFileFinished();
     void changePlainToHtml(QString &text);
-    static const long long fileBlockByte = 100;
+    static const long long fileBlockByte = 4096;
 
     bool isSendingFile;
 };

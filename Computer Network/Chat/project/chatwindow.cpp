@@ -45,6 +45,7 @@ void ChatWindow::connectToUser_Msg()
 
 void ChatWindow::connectToUser_File()
 {
+    tcpSend_File = new QTcpSocket();
     tcpSend_File->connectToHost(user.host, user.TCP_PORT_File);
     connect(tcpSend_File, SIGNAL(connected()), this, SLOT(sendFile()));
 }
@@ -79,12 +80,25 @@ void ChatWindow::getMsg(QByteArray msg)
 void ChatWindow::getFile(QByteArray msg)
 {
     if(msg.isEmpty()) return;
+    std::cout << "start fileGetByte" << fileGetByte << std::endl;
+
     fileByteArray.append(msg);
     fileGetByte += msg.size();
+
+    std::cout << "fileGetByte:" << fileGetByte << std::endl;
+    std::cout << "fileAllByte:" << fileAllByte << std::endl;
+
     if(fileGetByte == fileAllByte) {
+        QString realMd5 = QCryptographicHash::hash(fileByteArray, QCryptographicHash::Md5).toHex();
+        if(realMd5 != fileMd5) {
+            QMessageBox::critical(this, "错误", "文件MD5不一致!");
+            return;
+        }
+
         file->write(fileByteArray);
         file->close();
-        fileProgressWindow->setValue(100);
+        fileProgressWindow->close();
+        QMessageBox::information(this, "信息", "已完成接收文件");
         return;
     }
     else if(fileGetByte > fileAllByte) {
@@ -138,19 +152,26 @@ void ChatWindow::sendMsg()
 void ChatWindow::sendFile()
 {
     QByteArray msg;
-    int pos = fileSendByte;
-    fileSendByte += fileBlockByte;
-    while(pos < fileSendByte && pos < fileAllByte) {
-        msg.append(fileByteArray[pos++]);
+    fileSendByte = 0;
+    connect(tcpSend_File, SIGNAL(bytesWritten(qint64)), this, SLOT(setProcessBar(qint64)));
+
+    int pos = 0;
+    while(pos < fileAllByte) {
+        msg.clear();
+        int cnt = fileBlockByte;
+        while(cnt-- && pos < fileAllByte) msg.append(fileByteArray[pos++]);
+        tcpSend_File->write(msg);
     }
-    //qDebug() << "sendFileStream:" << msg << endl << endl;
-    tcpSend_File->write(msg);
+}
 
-    int value;
-    if(fileSendByte >= fileAllByte) value = 100;
-    else value = (double)fileSendByte / fileAllByte * 100;
-
-    fileProgressWindow->setValue(value);
+void ChatWindow::setProcessBar(qint64 byteSize)
+{
+    fileSendByte += byteSize;
+    fileProgressWindow->setValue(100 * fileSendByte / fileAllByte);
+    if(fileSendByte == fileAllByte) {
+        fileProgressWindow->close();
+        QMessageBox::information(this, "信息", "已完成发送文件!");
+    }
 }
 
 void ChatWindow::readySendFileACK()
@@ -167,6 +188,7 @@ void ChatWindow::sendFileACK()
     myself.addHead(msg);
     MsgHead::addHead(msg, "sendFileACK");
     tcpSend_Msg->write(msg);
+    isSendingFile = false;
 }
 
 void ChatWindow::readySendFileInfo()
@@ -182,6 +204,7 @@ void ChatWindow::sendFileInfo()
     QByteArray msg;
     msg.append(fileName + "\n");
     msg.append(QString::number(fileAllByte) + "\n");
+    msg.append(QCryptographicHash::hash(fileByteArray, QCryptographicHash::Md5).toHex() + "\n");
     myself.addHead(msg);
     MsgHead::addHead(msg, "FileInfo");
 
@@ -260,7 +283,11 @@ void ChatWindow::getFileInfo(QByteArray msg)
 
     fileName = MsgHead::popHead(msg);
     fileAllByte = MsgHead::popHead(msg).toInt();
+    fileMd5 = MsgHead::popHead(msg);
     fileGetByte = 0;
+    fileByteArray.clear();
+
+    qDebug() << "begin fileGetByte:" << fileGetByte << endl;
 
     fileGetWindow->setWindowFlags(Qt::WindowStaysOnTopHint);
     fileGetWindow->show();
@@ -346,12 +373,14 @@ void ChatWindow::on_pushButton_clicked()
         return;
     }
     fileByteArray = file->readAll();
-    fileAllByte = fileByteArray.length();
+    fileAllByte = QFileInfo(*file).size();
 
+    /*
     if(fileAllByte > 10 * 1024 * 1024) {
         QMessageBox::critical(this,tr("Warning"),"传输文件太大!");
         return;
     }
+    */
 
     fileSendByte = 0;
 

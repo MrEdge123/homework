@@ -6,6 +6,7 @@
 #include <QNetworkInterface>
 #include <QHostInfo>
 #include <QFile>
+#include <exception>
 
 int main(int argc, char *argv[])
 {
@@ -24,4 +25,6 @@ int main(int argc, char *argv[])
     w1.show();
 
     return a.exec();
+
+    return 0;
 }

@@ -182,16 +182,10 @@ void ListWindow::getMsg()
 void ListWindow::getFile()
 {
     QByteArray msg = tcpGet_File->readAll();
-    while(msg.size() < cws[sendFileUserPos]->fileBlockByte) {
-        QByteArray buf = tcpGet_File->readAll();
-        if(buf.isEmpty()) {
-            qDebug() << "lost data" << endl;
-            break;
-        }
-        msg.append(buf);
-    }
     cws[sendFileUserPos]->getFile(msg);
-    tcpGet_File->close();
+    if(cws[sendFileUserPos]->fileGetByte == cws[sendFileUserPos]->fileAllByte) {
+        tcpGet_File->close();
+    }
 }
 
 void ListWindow::closeEvent(QCloseEvent *e)
